@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Page</title>
+</head>
+<body>
+    <h1>Interactive Page</h1>
+
+    <section id="section1">
+        <h2>Section 1</h2>
+        <button id="btn1" onclick="fetchData('btn1')">List Files</button>
+        <button id="btn2" onclick="fetchData('btn2')">List Folders</button>
+    </section>
+
+    <section id="section2">
+        <h2>Section 2</h2>
+        <div id="fileList">All Files</div>
+        <div id="folderList"></div>
+    </section>
+
+    <section id="section3">
+        <h2>Section 3</h2>
+        <ul>
+            <li><a href="https://www.facebook.com/">Facebook</a></li>
+            <li><a href="https://www.instagram.com/">Instagram</a></li>
+            <li><a href="https://twitter.com/">Twitter</a></li>
+            <li><a href="https://www.linkedin.com/">LinkedIn</a></li>
+        </ul>
+    </section>
+
+    <script>
+        function fetchData(buttonId) {
+    fetch('/', {
+        method: 'POST',
+        body: buttonId
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (buttonId === 'btn1') {
+            document.getElementById('fileList').innerHTML = data;
+        } else if (buttonId === 'btn2') {
+            document.getElementById('folderList').innerHTML = data;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+    </script>
+</body>
+</html>
