@@ -57,7 +57,10 @@ class MyRequestHandler(SimpleHTTPRequestHandler):
         try:
             files = os.listdir(directory)
             file_list = [f for f in files if os.path.isfile(os.path.join(directory, f))]
-            return '<ul>' + ''.join([f'<li>{file}</li>' for file in file_list]) + '</ul>'
+            if file_list:
+                return '<ul>' + ''.join([f'<li>{file}</li>' for file in file_list]) + '</ul>'
+            else:
+                return '<p>No files found</p>'
         except Exception as e:
             print(f"Error retrieving file list: {e}")
             return '<p>Error retrieving file list.</p>'
@@ -72,11 +75,14 @@ class MyRequestHandler(SimpleHTTPRequestHandler):
     def get_folder_list(self, directory='.'):
         try:
             folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
-            return '<ul>' + ''.join([f'<li>{folder}</li>' for folder in folders]) + '</ul>'
+            if folders:
+                return '<ul>' + ''.join([f'<li>{folder}</li>' for folder in folders]) + '</ul>'
+            else:
+                return '<p>NO folders found</p>'
         except Exception as e:
             print(f"Error retrieving folder list: {e}")
             return '<p>Error retrieving folder list.</p>'
-
+        
 if __name__ == '__main__':
     server_address = ('0.0.0.0', 8000)
     handler = MyRequestHandler
