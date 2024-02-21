@@ -20,42 +20,33 @@ class MyRequestHandler(SimpleHTTPRequestHandler):
             print(params)
             print("end of params log")
 
-            if params.get('btn1', [''])[0] == '':
+            if params.get('buttonId', '') == 'btn1':
                 print("btn1 pressed by me")
-        # Button 1 was pressed
+                # Button 1 was pressed
                 file_list = self.get_file_list()
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 self.wfile.write(bytes(file_list, 'utf-8'))
-
-        # Set the flag to True to indicate that the logic has been executed
+                # Set the flag to True to indicate that the logic has been executed
                 self.post_handled = True
-            elif params.get('btn2', [''])[0] == '':
-        # Button 2 was pressed               
+            elif params.get('buttonId', '') == 'btn2':
+                # Button 2 was pressed
                 print("btn2 pressed by me this time")
                 folder_list = self.get_folder_list()
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 self.wfile.write(bytes(folder_list, 'utf-8'))
-
-        # Set the flag to True to indicate that the logic has been executed
+                # Set the flag to True to indicate that the logic has been executed
                 self.post_handled = True
             else:
                 self.send_response(400)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 self.wfile.write(b'Invalid request')
-        else:
-            print("Request already handled, ignoring.")
-            
 
-            
-        
-        
-    # Rest of your code remains unchanged
-    
+
 
     def get_file_list(self):
         # Implement your logic to analyze files and return a formatted list
