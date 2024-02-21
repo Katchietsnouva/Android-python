@@ -22,6 +22,7 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         button {
@@ -37,9 +38,16 @@
 
         #section2 {
             display: flex;
+            justify-content: space-between;
+        }
+        #fileList, #folderList, #allFilesList {
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
-        #leftPanel, #rightPanel {
+        #leftPanel, #rightPanel, #rightMostPanel {
             flex: 1;
             padding: 10px;
             margin: 10px;
@@ -71,6 +79,7 @@
         <h2>Section 1</h2>
         <button id="btn1" onclick="fetchData('btn1')">List Files</button>
         <button id="btn2" onclick="fetchData('btn2')">List Folders</button>
+        <button id="btn3" onclick="fetchData('btn3')">List All Files</button>
     </section>
 
     <section id="section2">
@@ -81,6 +90,10 @@
         <div id="rightPanel">
             <h2>Folders</h2>
             <div id="folderList">All Folders</div>
+        </div>
+        <div id="rightMostPanel">
+            <h2>Folders</h2>
+            <div id="allFilesList"></div>
         </div>
     </section>
 
@@ -110,6 +123,8 @@
                     document.getElementById('fileList').innerHTML = data;
                 } else if (buttonId === 'btn2') {
                     document.getElementById('folderList').innerHTML = data;
+                } else if (buttonId === 'btn3') {
+                    document.getElementById('allFilesList').innerHTML = data;
                 }
             })
             .catch(error => {
