@@ -1,6 +1,7 @@
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs
 import json
+import os
 
 class MyRequestHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
@@ -62,11 +63,19 @@ class MyRequestHandler(SimpleHTTPRequestHandler):
             return '<p>Error retrieving file list.</p>'
 
 
-    def get_folder_list(self):
-        # Implement your logic to analyze folders and return a formatted list
-        # For simplicity, a placeholder list is used here
-        folder_list = ['folder1', 'folder2', 'folder3']
-        return '<ul>' + ''.join([f'<li>{folder}</li>' for folder in folder_list]) + '</ul>'
+    # def get_folder_list(self):
+    #     # Implement your logic to analyze folders and return a formatted list
+    #     # For simplicity, a placeholder list is used here
+    #     folder_list = ['folder1', 'folder2', 'folder3']
+    #     return '<ul>' + ''.join([f'<li>{folder}</li>' for folder in folder_list]) + '</ul>'
+
+    def get_folder_list(self, directory='.'):
+        try:
+            folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
+            return '<ul>' + ''.join([f'<li>{folder}</li>' for folder in folders]) + '</ul>'
+        except Exception as e:
+            print(f"Error retrieving folder list: {e}")
+            return '<p>Error retrieving folder list.</p>'
 
 if __name__ == '__main__':
     server_address = ('0.0.0.0', 8000)
