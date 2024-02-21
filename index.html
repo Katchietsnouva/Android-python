@@ -3,55 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Page</title>
+    <title>File Explorer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #fileList, #folderList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Interactive Page</h1>
+    <h1>File Explorer</h1>
 
-    <section id="section1">
-        <h2>Section 1</h2>
-        <button id="btn1" onclick="fetchData('btn1')">List Files</button>
-        <button id="btn2" onclick="fetchData('btn2')">List Folders</button>
-    </section>
+    <div>
+        <button onclick="fetchData('btn1')">List Files</button>
+        <button onclick="fetchData('btn2')">List Folders</button>
+    </div>
 
-    <section id="section2">
-        <h2>Section 2</h2>
-        <div id="fileList">All Files</div>
-        <div id="folderList"></div>
-    </section>
+    <div>
+        <h2>Files:</h2>
+        <ul id="fileList"></ul>
+    </div>
 
-    <section id="section3">
-        <h2>Section 3</h2>
-        <ul>
-            <li><a href="https://www.facebook.com/">Facebook</a></li>
-            <li><a href="https://www.instagram.com/">Instagram</a></li>
-            <li><a href="https://twitter.com/">Twitter</a></li>
-            <li><a href="https://www.linkedin.com/">LinkedIn</a></li>
-        </ul>
-    </section>
+    <div>
+        <h2>Folders:</h2>
+        <ul id="folderList"></ul>
+    </div>
 
     <script>
         function fetchData(buttonId) {
-    const data = { buttonId: buttonId }; // Use an object with a key-value pair
-    fetch('/', {
-        method: 'POST',
-        body: JSON.stringify(data), // Convert the object to JSON string
-        headers: {
-            'Content-Type': 'application/json'
+            const data = { buttonId: buttonId };
+
+            fetch('/', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (buttonId === 'btn1') {
+                    document.getElementById('fileList').innerHTML = data;
+                } else if (buttonId === 'btn2') {
+                    document.getElementById('folderList').innerHTML = data;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
-    })
-    .then(response => response.text())
-    .then(data => {
-        if (buttonId === 'btn1') {
-            document.getElementById('fileList').innerHTML = data;
-        } else if (buttonId === 'btn2') {
-            document.getElementById('folderList').innerHTML = data;
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
     </script>
 </body>
 </html>
