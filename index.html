@@ -36,8 +36,16 @@
             border-radius: 5px;
         }
 
+        #section1{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         #section2 {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
         }
         #fileList, #folderList, #allFilesList {
@@ -47,7 +55,7 @@
             overflow-y: auto;
         }
 
-        #leftPanel, #rightPanel, #rightMostPanel {
+        .panel {
             flex: 1;
             padding: 10px;
             margin: 10px;
@@ -74,26 +82,31 @@
 </head>
 <body>
     <h1>Interactive Page</h1>
+    <div>
+        <section id="section0">
+        <h2>Menu</h2>    
+            <section id="section1">
+                
+                <button id="btn1" onclick="fetchData('btn1')">List Files</button>
+                <button id="btn2" onclick="fetchData('btn2')">List Folders</button>
+                <button id="btn3" onclick="fetchData('btn3')">List All Files</button>
+            </section>
+        </section>
+    </div>
 
-    <section id="section1">
-        <h2>Section 1</h2>
-        <button id="btn1" onclick="fetchData('btn1')">List Files</button>
-        <button id="btn2" onclick="fetchData('btn2')">List Folders</button>
-        <button id="btn3" onclick="fetchData('btn3')">List All Files</button>
-    </section>
 
     <section id="section2">
-        <div id="leftPanel">
+        <div id="panel">
             <h2>Files</h2>
             <div id="fileList">All Files</div>
         </div>
-        <div id="rightPanel">
+        <div id="panel">
             <h2>Folders</h2>
             <div id="folderList">All Folders</div>
         </div>
-        <div id="rightMostPanel">
+        <div id="panel">
             <h2>Folders</h2>
-            <div id="allFilesList"></div>
+            <div id="allFilesList">All Folders</div>
         </div>
     </section>
 
