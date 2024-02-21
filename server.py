@@ -46,13 +46,21 @@ class MyRequestHandler(SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(b'Invalid request')
 
+    # def get_file_list(self):
+    #     # Implement your logic to analyze files and return a formatted list
+    #     # For simplicity, a placeholder list is used here
+    #     file_list = ['file1.txt', 'file2.txt', 'file3.txt']
+    #     return '<ul>' + ''.join([f'<li>{file}</li>' for file in file_list]) + '</ul>'
 
+    def get_file_list(self, directory='.'):
+        try:
+            files = os.listdir(directory)
+            file_list = [f for f in files if os.path.isfile(os.path.join(directory, f))]
+            return '<ul>' + ''.join([f'<li>{file}</li>' for file in file_list]) + '</ul>'
+        except Exception as e:
+            print(f"Error retrieving file list: {e}")
+            return '<p>Error retrieving file list.</p>'
 
-    def get_file_list(self):
-        # Implement your logic to analyze files and return a formatted list
-        # For simplicity, a placeholder list is used here
-        file_list = ['file1.txt', 'file2.txt', 'file3.txt']
-        return '<ul>' + ''.join([f'<li>{file}</li>' for file in file_list]) + '</ul>'
 
     def get_folder_list(self):
         # Implement your logic to analyze folders and return a formatted list
