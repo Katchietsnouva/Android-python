@@ -3,61 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Explorer</title>
+    <title>Interactive Page</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
             background-color: #f4f4f4;
         }
 
-        h1 {
+        h1, h2 {
             color: #333;
         }
 
-        #fileList, #folderList {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 5px 0;
-            padding: 10px;
+        section {
+            margin: 20px;
+            padding: 20px;
             background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         button {
             padding: 10px;
             font-size: 16px;
-            margin: 10px;
+            margin-right: 10px;
             cursor: pointer;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
         }
+
+        #section2 {
+            display: flex;
+        }
+
+        #leftPanel, #rightPanel {
+            flex: 1;
+            padding: 10px;
+            margin: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+        }
+
     </style>
 </head>
 <body>
-    <h1>File Explorer</h1>
+    <h1>Interactive Page</h1>
 
-    <div>
-        <button onclick="fetchData('btn1')">List Files</button>
-        <button onclick="fetchData('btn2')">List Folders</button>
-    </div>
+    <section id="section1">
+        <h2>Section 1</h2>
+        <button id="btn1" onclick="fetchData('btn1')">List Files</button>
+        <button id="btn2" onclick="fetchData('btn2')">List Folders</button>
+    </section>
 
-    <div>
-        <h2>Files:</h2>
-        <ul id="fileList"></ul>
-    </div>
+    <section id="section2">
+        <div id="leftPanel">
+            <h2>Files</h2>
+            <div id="fileList">All Files</div>
+        </div>
+        <div id="rightPanel">
+            <h2>Folders</h2>
+            <div id="folderList"></div>
+        </div>
+    </section>
 
-    <div>
-        <h2>Folders:</h2>
-        <ul id="folderList"></ul>
-    </div>
+    <section id="section3">
+        <h2>Section 3</h2>
+        <ul>
+            <li><a href="https://www.facebook.com/">Facebook</a></li>
+            <li><a href="https://www.instagram.com/">Instagram</a></li>
+            <li><a href="https://twitter.com/">Twitter</a></li>
+            <li><a href="https://www.linkedin.com/">LinkedIn</a></li>
+        </ul>
+    </section>
 
     <script>
         function fetchData(buttonId) {
             const data = { buttonId: buttonId };
-
             fetch('/', {
                 method: 'POST',
                 body: JSON.stringify(data),
